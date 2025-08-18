@@ -24,7 +24,7 @@ public class MessageController {
     }
 
     @PostMapping("")
-   public String postMessage(@RequestBody PostMessageDto postMessageDto){
-        return "";
-   }
+    public String postMessage(@RequestBody PostMessageDto postMessageDto){
+        return messageService.postMessage(postMessageDto);
+    }
 }

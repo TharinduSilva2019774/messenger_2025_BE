@@ -8,7 +8,6 @@ import lombok.Setter;
 public class PostMessageDto {
 
     private String message;
-    private String ClarkId;
-
+    private String clarkId;
 
 }
