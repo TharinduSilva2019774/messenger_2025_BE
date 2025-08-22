@@ -20,5 +20,46 @@ public class GetMessageResponseDto {
 
     private long userId;
 
+    private boolean isCurrentUser;
 
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public boolean isCurrentUser() {
+        return isCurrentUser;
+    }
+
+    public void setCurrentUser(boolean currentUser) {
+        isCurrentUser = currentUser;
+    }
 }

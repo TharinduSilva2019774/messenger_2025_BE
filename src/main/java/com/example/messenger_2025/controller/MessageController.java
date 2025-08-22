@@ -6,6 +6,7 @@ import com.example.messenger_2025.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/messages")
 public class MessageController {
@@ -18,13 +19,13 @@ public class MessageController {
         return "Hello this is Messages endpoint";
     }
 
-    @GetMapping("")
-    public GetAllMessagesResponseDto getAllMessages(){
-        return messageService.getAllMessages();
+    @GetMapping("/{id}")
+    public GetAllMessagesResponseDto getAllMessages(@PathVariable("id") String id) throws Exception {
+        return messageService.getAllMessages(id);
     }
 
     @PostMapping("")
-    public String postMessage(@RequestBody PostMessageDto postMessageDto){
+    public String postMessage(@RequestBody PostMessageDto postMessageDto) throws Exception {
         return messageService.postMessage(postMessageDto);
     }
 }

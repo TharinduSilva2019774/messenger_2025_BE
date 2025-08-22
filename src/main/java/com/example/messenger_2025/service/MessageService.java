@@ -21,32 +21,35 @@ public class MessageService {
     private MessageRepository messageRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
-    public GetAllMessagesResponseDto getAllMessages(){
+    public GetAllMessagesResponseDto getAllMessages(String clarkId) throws Exception {
+        User user = userService.getUserByClarkId(clarkId);
+
+
         List<Message> messages = messageRepository.findAll();
 
         List<GetMessageResponseDto> getMessageResponseDtos = new ArrayList<>();
 
         for(Message message : messages){
+            GetMessageResponseDto getMessageResponseDto = new GetMessageResponseDto(message.getId(),message.getMessageBody(),message.getTime(),message.getUser().getId(),false);
 
-            GetMessageResponseDto getMessageResponseDto = new GetMessageResponseDto(message.getId(),message.getMessageBody(),message.getTime(),message.getUser().getId());
+            if(user.getId() == message.getUser().getId()){
+                getMessageResponseDto.setCurrentUser(true);
+            }
+
             getMessageResponseDtos.add(getMessageResponseDto);
         }
 
         return new GetAllMessagesResponseDto(getMessageResponseDtos);
     }
 
-    public String postMessage(PostMessageDto postMessageDto){
-        Optional<User> optionalUser = userRepository.getUserByClarkId(postMessageDto.getClarkId());
-
-        if(optionalUser.isEmpty()){
-            return "No clark user found";
-        }
+    public String postMessage(PostMessageDto postMessageDto) throws Exception {
+        User user = userService.getUserByClarkId(postMessageDto.getClarkId());
 
         Message newMessage = new Message();
         newMessage.setMessageBody(postMessageDto.getMessage());
-        newMessage.setUser(optionalUser.get());
+        newMessage.setUser(user);
 
         messageRepository.save(newMessage);
 
