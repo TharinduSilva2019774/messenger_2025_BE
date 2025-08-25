@@ -22,6 +22,8 @@ public class GetMessageResponseDto {
 
     private boolean isCurrentUser;
 
+    private String userFirstName;
+
 
     public long getId() {
         return id;
@@ -62,4 +64,14 @@ public class GetMessageResponseDto {
     public void setCurrentUser(boolean currentUser) {
         isCurrentUser = currentUser;
     }
+
+
+    public String getUserFirstName() {
+        return userFirstName;
+    }
+
+    public void setUserFirstName(String userFirstName) {
+        this.userFirstName = userFirstName;
+    }
+
 }

@@ -19,8 +19,8 @@ public class MessageController {
         return "Hello this is Messages endpoint";
     }
 
-    @GetMapping("/{id}")
-    public GetAllMessagesResponseDto getAllMessages(@PathVariable("id") String id) throws Exception {
+    @GetMapping()
+    public GetAllMessagesResponseDto getAllMessages(@RequestParam ("id") String id) throws Exception {
         return messageService.getAllMessages(id);
     }
 

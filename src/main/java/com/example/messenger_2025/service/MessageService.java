@@ -30,9 +30,10 @@ public class MessageService {
         List<Message> messages = messageRepository.findAll();
 
         List<GetMessageResponseDto> getMessageResponseDtos = new ArrayList<>();
-
+        User mUser;
         for(Message message : messages){
-            GetMessageResponseDto getMessageResponseDto = new GetMessageResponseDto(message.getId(),message.getMessageBody(),message.getTime(),message.getUser().getId(),false);
+            mUser = message.getUser();
+            GetMessageResponseDto getMessageResponseDto = new GetMessageResponseDto(message.getId(),message.getMessageBody(),message.getTime(),mUser.getId(),false,mUser.getFirstName());
 
             if(user.getId() == message.getUser().getId()){
                 getMessageResponseDto.setCurrentUser(true);
