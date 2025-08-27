@@ -6,13 +6,11 @@ import com.example.messenger_2025.payload.GetAllMessagesResponseDto;
 import com.example.messenger_2025.payload.GetMessageResponseDto;
 import com.example.messenger_2025.payload.PostMessageDto;
 import com.example.messenger_2025.repository.MessageRepository;
-import com.example.messenger_2025.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class MessageService {
