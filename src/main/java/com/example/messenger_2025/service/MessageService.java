@@ -22,8 +22,6 @@ public class MessageService {
     private UserService userService;
 
     public GetAllMessagesResponseDto getAllMessages(String clarkId) throws Exception {
-        User user = userService.getUserByClarkId(clarkId);
-
 
         List<Message> messages = messageRepository.findAll();
 
@@ -31,11 +29,7 @@ public class MessageService {
         User mUser;
         for(Message message : messages){
             mUser = message.getUser();
-            GetMessageResponseDto getMessageResponseDto = new GetMessageResponseDto(message.getId(),message.getMessageBody(),message.getTime(),mUser.getId(),false,mUser.getFirstName());
-
-            if(user.getId() == message.getUser().getId()){
-                getMessageResponseDto.setCurrentUser(true);
-            }
+            GetMessageResponseDto getMessageResponseDto = new GetMessageResponseDto(message.getId(),message.getMessageBody(),message.getTime(),mUser.getId(),mUser.getClarkId(),mUser.getFirstName());
 
             getMessageResponseDtos.add(getMessageResponseDto);
         }

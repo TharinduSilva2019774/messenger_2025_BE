@@ -15,4 +15,27 @@ public class PostUserDto {
     @NonNull
     private String clarkId;
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getClarkId() {
+        return clarkId;
+    }
+
+    public void setClarkId(String clarkId) {
+        this.clarkId = clarkId;
+    }
 }

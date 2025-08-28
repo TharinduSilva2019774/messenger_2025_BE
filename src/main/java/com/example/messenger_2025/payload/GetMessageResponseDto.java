@@ -20,9 +20,18 @@ public class GetMessageResponseDto {
 
     private long userId;
 
-    private boolean isCurrentUser;
+    private String clarkId;
 
     private String userFirstName;
+
+//    public GetMessageResponseDto(long id,String message,Timestamp time,long userId, String clarkId, String userFirstName) {
+//        this.userFirstName = userFirstName;
+//        this.clarkId = clarkId;
+//        this.userId = userId;
+//        this.time = time;
+//        this.message = message;
+//        this.id = id;
+//    }
 
 
     public long getId() {
@@ -57,17 +66,18 @@ public class GetMessageResponseDto {
         this.userId = userId;
     }
 
-    public boolean isCurrentUser() {
-        return isCurrentUser;
-    }
-
-    public void setCurrentUser(boolean currentUser) {
-        isCurrentUser = currentUser;
-    }
-
 
     public String getUserFirstName() {
         return userFirstName;
+    }
+
+
+    public String getClarkId() {
+        return clarkId;
+    }
+
+    public void setClarkId(String clarkId) {
+        this.clarkId = clarkId;
     }
 
     public void setUserFirstName(String userFirstName) {
