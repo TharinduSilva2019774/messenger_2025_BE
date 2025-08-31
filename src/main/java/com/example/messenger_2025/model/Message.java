@@ -3,6 +3,7 @@ package com.example.messenger_2025.model;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
@@ -12,6 +13,7 @@ import java.sql.Timestamp;
 @Entity
 @EnableAutoConfiguration
 @AllArgsConstructor
+@NoArgsConstructor
 public class Message {
 
     @Id
