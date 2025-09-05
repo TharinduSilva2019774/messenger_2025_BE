@@ -3,7 +3,7 @@ name: Deploy on PR Merge
 on:
   push:
     branches:
-      - main  # triggers when PR is merged into main
+      - master  # triggers when PR is merged into master
 
 jobs:
   deploy:
