@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 @Entity
 @Data
 @EnableAutoConfiguration
+@Table(name = "\"user\"")
 public class User {
 
     @Id
