@@ -1,43 +1,43 @@
-name: Deploy on PR Merge
-
-on:
-  push:
-    branches:
-      - master  # triggers when PR is merged into master
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: temurin
-          java-version: 24
-
-      - name: Build with Maven
-        run: mvn clean package -DskipTests
-
-      - name: Copy JAR to server
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
-          source: target/messenger_2025-0.0.1-SNAPSHOT.jar
-          target: ${{ secrets.APP_PATH }}
-
-      - name: Restart application on server
-        uses: appleboy/ssh-action@v0.1.6
-        with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            pkill -f "${{ secrets.APP_NAME }}" || true
-            nohup java -jar ${{ secrets.APP_PATH }}/${{ secrets.APP_NAME }} > app.log 2>&1 &
+#name: Deploy on PR Merge
+#
+#on:
+#  push:
+#    branches:
+#      - master  # triggers when PR is merged into master
+#
+#jobs:
+#  deploy:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#
+#      - name: Set up Java
+#        uses: actions/setup-java@v3
+#        with:
+#          distribution: temurin
+#          java-version: 24
+#
+#      - name: Build with Maven
+#        run: mvn clean package -DskipTests
+#
+#      - name: Copy JAR to server
+#        uses: appleboy/scp-action@v0.1.4
+#        with:
+#          host: ${{ secrets.DEPLOY_HOST }}
+#          username: ${{ secrets.DEPLOY_USER }}
+#          key: ${{ secrets.SSH_PRIVATE_KEY }}
+#          port: 22
+#          source: target/messenger_2025-0.0.1-SNAPSHOT.jar
+#          target: ${{ secrets.APP_PATH }}
+#
+#      - name: Restart application on server
+#        uses: appleboy/ssh-action@v0.1.6
+#        with:
+#          host: ${{ secrets.DEPLOY_HOST }}
+#          username: ${{ secrets.DEPLOY_USER }}
+#          key: ${{ secrets.SSH_PRIVATE_KEY }}
+#          script: |
+#            pkill -f "${{ secrets.APP_NAME }}" || true
+#            nohup java -jar ${{ secrets.APP_PATH }}/${{ secrets.APP_NAME }} > app.log 2>&1 &
