@@ -13,7 +13,7 @@ RUN mvn dependency:go-offline
 
 # Copy source code and build JAR
 COPY src ./src
-RUN mvn clean package -DskipTests
+RUN mvn clean install -DskipTests
 
 # Stage 2: Run
 FROM eclipse-temurin:24-jdk
