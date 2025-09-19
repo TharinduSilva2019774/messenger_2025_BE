@@ -10,6 +10,6 @@ public class DefaultController {
 
     @GetMapping("/")
     public String helloWorld(){
-        return "HelloWorld";
+        return "HelloWorld G CLOUD";
     }
 }
