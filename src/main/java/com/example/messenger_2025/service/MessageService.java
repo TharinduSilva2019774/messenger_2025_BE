@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -23,7 +24,8 @@ public class MessageService {
 
     public GetAllMessagesResponseDto getAllMessages(String clarkId) throws Exception {
 
-        List<Message> messages = messageRepository.findAll();
+        List<Message> messages = messageRepository.findTop20ByOrderByIdDesc();
+        Collections.reverse(messages);
 
         List<GetMessageResponseDto> getMessageResponseDtos = new ArrayList<>();
         User mUser;
