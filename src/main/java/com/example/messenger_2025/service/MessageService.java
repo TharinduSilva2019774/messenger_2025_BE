@@ -31,7 +31,7 @@ public class MessageService {
         User mUser;
         for(Message message : messages){
             mUser = message.getUser();
-            GetMessageResponseDto getMessageResponseDto = new GetMessageResponseDto(message.getId(),message.getMessageBody(),message.getTime(),mUser.getId(),mUser.getClarkId(),mUser.getFirstName());
+            GetMessageResponseDto getMessageResponseDto = new GetMessageResponseDto(message.getId(),message.getMessageBody(),message.getTime(),mUser.getId(),mUser.getClarkId(),mUser.getFirstName(),message.getChat().getId());
 
             getMessageResponseDtos.add(getMessageResponseDto);
         }
@@ -45,6 +45,7 @@ public class MessageService {
         Message newMessage = new Message();
         newMessage.setMessageBody(postMessageDto.getMessage());
         newMessage.setUser(user);
+        newMessage.setId(postMessageDto.getChatId());
 
         messageRepository.save(newMessage);
 
