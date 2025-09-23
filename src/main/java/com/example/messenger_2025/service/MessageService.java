@@ -22,7 +22,11 @@ public class MessageService {
     @Autowired
     private UserService userService;
 
-    public GetAllMessagesResponseDto getAllMessages(String clarkId) throws Exception {
+    @Autowired
+    private ChatService chatService;
+
+
+    public GetAllMessagesResponseDto getAllMessages(String clarkId,long chatId) throws Exception {
 
         List<Message> messages = messageRepository.findTop20ByOrderByIdDesc();
         Collections.reverse(messages);
@@ -45,7 +49,7 @@ public class MessageService {
         Message newMessage = new Message();
         newMessage.setMessageBody(postMessageDto.getMessage());
         newMessage.setUser(user);
-        newMessage.setId(postMessageDto.getChatId());
+        newMessage.setChat(chatService.getChat(postMessageDto.getChatId()));
 
         messageRepository.save(newMessage);
 

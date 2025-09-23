@@ -22,8 +22,8 @@ public class MessageController {
     }
 
     @GetMapping()
-    public GetAllMessagesResponseDto getAllMessages(@RequestParam ("id") String id) throws Exception {
-        return messageService.getAllMessages(id);
+    public GetAllMessagesResponseDto getAllMessages(@RequestParam ("userId") String userId, @RequestParam ("chatId") long chatId) throws Exception {
+        return messageService.getAllMessages(userId,chatId);
     }
 
     @PostMapping("")
@@ -39,6 +39,6 @@ public class MessageController {
         messageService.postMessage(postMessageDto);
 
         // 2. Return to broadcast
-        return messageService.getAllMessages(postMessageDto.getClarkId());
+        return messageService.getAllMessages(postMessageDto.getClarkId(), postMessageDto.getChatId());
     }
 }
