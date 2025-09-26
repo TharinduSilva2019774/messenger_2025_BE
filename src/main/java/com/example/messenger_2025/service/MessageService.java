@@ -1,5 +1,6 @@
 package com.example.messenger_2025.service;
 
+import com.example.messenger_2025.model.Chat;
 import com.example.messenger_2025.model.Message;
 import com.example.messenger_2025.model.User;
 import com.example.messenger_2025.payload.GetAllMessagesResponseDto;
@@ -28,7 +29,10 @@ public class MessageService {
 
     public GetAllMessagesResponseDto getAllMessages(String clarkId,long chatId) throws Exception {
 
-        List<Message> messages = messageRepository.findTop20ByOrderByIdDesc();
+        User user = userService.getUserByClarkId(clarkId);
+        Chat chat = chatService.getChat(chatId);
+
+        List<Message> messages = messageRepository.findTop20ByChatOrderByIdDesc(chat);
         Collections.reverse(messages);
 
         List<GetMessageResponseDto> getMessageResponseDtos = new ArrayList<>();

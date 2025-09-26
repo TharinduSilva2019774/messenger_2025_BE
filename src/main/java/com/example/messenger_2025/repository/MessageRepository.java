@@ -1,6 +1,8 @@
 package com.example.messenger_2025.repository;
 
+import com.example.messenger_2025.model.Chat;
 import com.example.messenger_2025.model.Message;
+import com.example.messenger_2025.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,5 +12,8 @@ import java.util.List;
 public interface MessageRepository extends JpaRepository<Message,Long> {
 
     List<Message> findTop20ByOrderByIdDesc();
+
+    List<Message> findTop20ByChatOrderByIdDesc(Chat chat);
+
 
 }
