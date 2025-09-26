@@ -1,5 +1,6 @@
 package com.example.messenger_2025.service;
 
+import com.example.messenger_2025.model.Chat;
 import com.example.messenger_2025.model.Message;
 import com.example.messenger_2025.model.User;
 import com.example.messenger_2025.payload.GetAllMessagesResponseDto;
@@ -22,16 +23,23 @@ public class MessageService {
     @Autowired
     private UserService userService;
 
-    public GetAllMessagesResponseDto getAllMessages(String clarkId) throws Exception {
+    @Autowired
+    private ChatService chatService;
 
-        List<Message> messages = messageRepository.findTop20ByOrderByIdDesc();
+
+    public GetAllMessagesResponseDto getAllMessages(String clarkId,long chatId) throws Exception {
+
+        User user = userService.getUserByClarkId(clarkId);
+        Chat chat = chatService.getChat(chatId);
+
+        List<Message> messages = messageRepository.findTop20ByChatOrderByIdDesc(chat);
         Collections.reverse(messages);
 
         List<GetMessageResponseDto> getMessageResponseDtos = new ArrayList<>();
         User mUser;
         for(Message message : messages){
             mUser = message.getUser();
-            GetMessageResponseDto getMessageResponseDto = new GetMessageResponseDto(message.getId(),message.getMessageBody(),message.getTime(),mUser.getId(),mUser.getClarkId(),mUser.getFirstName());
+            GetMessageResponseDto getMessageResponseDto = new GetMessageResponseDto(message.getId(),message.getMessageBody(),message.getTime(),mUser.getId(),mUser.getClarkId(),mUser.getFirstName(),message.getChat().getId());
 
             getMessageResponseDtos.add(getMessageResponseDto);
         }
@@ -45,6 +53,7 @@ public class MessageService {
         Message newMessage = new Message();
         newMessage.setMessageBody(postMessageDto.getMessage());
         newMessage.setUser(user);
+        newMessage.setChat(chatService.getChat(postMessageDto.getChatId()));
 
         messageRepository.save(newMessage);
 

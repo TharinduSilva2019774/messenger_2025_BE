@@ -1,7 +1,7 @@
 package com.example.messenger_2025.repository;
 
 import com.example.messenger_2025.model.Chat;
-import com.example.messenger_2025.model.Message;
+import com.example.messenger_2025.model.Chat_User;
 import com.example.messenger_2025.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -9,11 +9,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MessageRepository extends JpaRepository<Message,Long> {
+public interface Chat_UserRepository extends JpaRepository<Chat_User,Long> {
 
-    List<Message> findTop20ByOrderByIdDesc();
-
-    List<Message> findTop20ByChatOrderByIdDesc(Chat chat);
-
+    List<Chat_User> findAllByUser(User user);
 
 }

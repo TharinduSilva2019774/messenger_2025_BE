@@ -24,4 +24,6 @@ public class GetMessageResponseDto {
 
     private String userFirstName;
 
+    private long chatId;
+
 }
