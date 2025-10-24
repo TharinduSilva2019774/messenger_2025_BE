@@ -17,7 +17,7 @@ public class MessageController {
 
     @GetMapping("/hello")
     public String hello(){
-        return "Hello this is Messages endpoint";
+        return "Hello this is Messages endpoint.";
     }
 
     @GetMapping()
