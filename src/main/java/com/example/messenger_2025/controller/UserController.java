@@ -13,7 +13,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("")
-    public String postUser(@RequestBody PostUserDto postUserDto){
+    public String postUser(@RequestBody PostUserDto postUserDto) {
         return userService.postUser(postUserDto);
     }
 }
