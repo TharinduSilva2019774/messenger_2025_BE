@@ -33,7 +33,7 @@ public class ChatService {
         return "Successfully added";
     }
 
-    public GetAllChatDto getAllChats(String clarkId) throws Exception {
+    public GetAllChatDto getAllChats(String clarkId) {
         User user = userService.getUserByClarkId(clarkId);
         List<Chat_User> chatUserList = chatUserRepository.findAllByUser(user);
         List<Chat> chats = chatUserList.stream()
