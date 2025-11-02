@@ -18,12 +18,13 @@ public class UserService {
     private UserRepository userRepository;
 
 
-    public String postUser(PostUserDto postUserDto) throws DuplicateResourceException {
+    public String postUser(PostUserDto postUserDto) throws Exception {
+        User user;
         try{
-            getUserByClarkId(postUserDto.getClarkId());
-            throw new DuplicateResourceException("User already exist");
-        } catch (Exception e) {
-            User user = new User();
+            user = getUserByClarkId(postUserDto.getClarkId());
+            throw new DuplicateResourceException("user already exist");
+        } catch (ResourceNotFoundException e) {
+            user = new User();
             user.setFirstName(postUserDto.getFirstName());
             user.setLastName(postUserDto.getLastName());
             user.setClarkId(postUserDto.getClarkId());
