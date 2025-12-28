@@ -1,48 +1,100 @@
 Messenger 2025 — Backend 🚀
-A production-oriented Spring Boot backend powering the Messenger 2025 app. Provides REST APIs, STOMP/WebSocket real‑time messaging, persistent storage with MySQL, and JWT-based authentication validation.
 
-🔧 Tech stack
-Spring Boot 3.x (REST controllers & WebSocket endpoints)
-MySQL 8+ (persistent storage)
-JPA / Hibernate (ORM)
-STOMP over WebSocket (real‑time messaging)
-Lombok (boilerplate reduction)
-JWT (access validation)
-🏗 Architecture overview
+A production-oriented Spring Boot backend powering the Messenger 2025 application.
+This service delivers REST APIs, real-time messaging via WebSockets, persistent storage with MySQL, and JWT-based authentication validation.
+
+🔧 Tech Stack
+
+Spring Boot 3.x — REST controllers & WebSocket endpoints
+
+MySQL 8+ — Persistent relational storage
+
+JPA / Hibernate — ORM & data mapping
+
+STOMP over WebSocket — Real-time messaging
+
+Lombok — Boilerplate reduction
+
+JWT — Access token validation
+
+🏗 Architecture Overview
 Controller (REST & WebSocket)
-Service (business logic)
-Repository (data access)
-Model / DTO (payloads and entities)
+        ↓
+Service (Business Logic)
+        ↓
+Repository (Data Access)
+        ↓
+Model / DTO (Entities & API Payloads)
 
 ✅ Features
-REST endpoints for users and messages (GET/POST)
-Real‑time chat using WebSocket + STOMP
-DTOs for clean API payloads
-Service layer for testable business logic
-JWT validation for protected endpoints
-Note: Frontend authenticates with Clerk and sends JWTs in Authorization: Bearer <token> headers. Backend validates tokens (server-side validation filter / Spring Security).
 
-🚀 Quick start
-Prereqs:
+REST endpoints for users and messages (GET / POST)
+
+Real-time chat using WebSocket + STOMP
+
+DTO-based APIs for clean and stable payloads
+
+Service layer for testable and maintainable business logic
+
+JWT validation for protected endpoints
+
+Authentication Note
+The frontend authenticates users using Clerk and sends JWTs via
+Authorization: Bearer <token> headers.
+The backend performs server-side JWT validation using Spring Security filters.
+
+🚀 Quick Start
+Prerequisites
 
 Java 21+
+
 MySQL 8+
-Run locally:
 
-⚙️ Environment example
-Add DB credentials to application.properties:
+⚙️ Environment Configuration
 
-📌 Key endpoints
+Add your database credentials to application.properties:
+
+spring.datasource.url=jdbc:mysql://localhost:3306/messenger_2025
+spring.datasource.username=your_username
+spring.datasource.password=your_password
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+▶️ Run Locally
+./mvnw spring-boot:run
+
+📌 Key Endpoints
+REST APIs
+
 GET /api/users — List users
+
 POST /api/users — Create user
+
 GET /api/messages — List messages
+
 POST /api/messages — Send message
-WebSocket: /ws — Real‑time chat (STOMP)
+
+WebSocket
+
+/ws — Real-time chat (STOMP)
 
 🤝 Contributing
-Fork → branch (git checkout -b [Messenger_2025](http://_vscodecontentref_/1).) → commit → PR
-Follow existing code patterns and add/update tests where applicable
+
+Fork the repository
+
+Create a new branch
+
+git checkout -b Messenger_2025
+
+
+Commit your changes
+
+Open a Pull Request
+
+Please follow existing code patterns and add or update tests where applicable.
 
 📬 Contact
-Created by Tharindu Silva — feel free to reach out for questions or collaboration.
 
+Created by Tharindu Silva
+Feel free to reach out for questions, feedback, or collaboration.
