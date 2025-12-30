@@ -18,7 +18,8 @@ public class SecurityConfig {
                                 "/health",
                                 "/public/**",
                                 "/test",
-                                "/error"
+                                "/error",
+                                "/ws/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

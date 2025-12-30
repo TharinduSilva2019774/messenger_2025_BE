@@ -16,6 +16,6 @@ public class DefaultController {
 
     @GetMapping("/health")
     public String helloWorldHealth(@AuthenticationPrincipal Jwt jwt){
-        return "HelloWorld This is the "+jwt;
+        return "HelloWorld This is the " + jwt;
     }
 }
