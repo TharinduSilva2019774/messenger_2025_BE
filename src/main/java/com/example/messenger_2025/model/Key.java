@@ -1,9 +1,6 @@
 package com.example.messenger_2025.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +19,11 @@ public class Key {
 
     private String key;
 
+    @Column(unique = true, nullable = false)
     private String deviceUID;
+
+    @ManyToOne
+    @JoinColumn(name = "user", referencedColumnName = "id")
+    private User user;
 
 }
