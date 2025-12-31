@@ -17,6 +17,7 @@ public class Key {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(length = 1024)
     private String key;
 
     @Column(unique = true, nullable = false)
