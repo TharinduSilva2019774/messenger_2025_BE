@@ -11,6 +11,7 @@ import org.hibernate.annotations.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,8 +23,10 @@ public class KeyService {
     @Autowired
     private UserService userService;
 
-    public GetKeyDto getKey(String deviceUID){
-        Optional<Key> optKey = keyRepository.findByDeviceUID(deviceUID);
+    public GetKeyDto getKey(String clarkId){
+        User user = userService.getUserByClarkId(clarkId);
+        //temp solution for now
+        Optional<Key> optKey = keyRepository.findTopByUserOrderByIdDesc(user);
         if (optKey.isEmpty()){
             throw new ResourceNotFoundException("Key not Found");
         }
@@ -35,7 +38,7 @@ public class KeyService {
     public String postKey(PostKeyDto postKeyDto){
         User user = userService.getUserByClarkId(postKeyDto.getClarkId());
 
-        Optional<Key> existing = keyRepository.findByDeviceUID(postKeyDto.getDeviceUID());
+        Optional<Key> existing = keyRepository.findTopByUserOrderByIdDesc(user);
 
         if(existing.isPresent()){
             throw new DuplicateResourceException("DeviceUID already exist");

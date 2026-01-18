@@ -20,12 +20,12 @@ public class ChatController {
     }
 
     @GetMapping("")
-    public GetAllChatDto getAllChats(@RequestParam ("id") String id) throws Exception {
+    public GetAllChatDto getAllChats(@RequestParam ("id") String id){
         return chatService.getAllChats(id);
     }
 
     @GetMapping("/detail")
-    public GetChatDetailsDto getChatsDetail(@RequestParam ("id") long id) throws Exception {
+    public GetChatDetailsDto getChatsDetail(@RequestParam ("id") long id) {
         return chatService.getChatDetailsDto(id);
     }
 

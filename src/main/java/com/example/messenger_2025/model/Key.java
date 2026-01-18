@@ -4,7 +4,11 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
+import java.sql.Timestamp;
+import java.time.Instant;
 
 @Data
 @Entity
@@ -22,6 +26,11 @@ public class Key {
 
     @Column(unique = true, nullable = false)
     private String deviceUID;
+
+    @CreationTimestamp
+    private Timestamp createdAt;
+
+    private Timestamp lastSeenAt;
 
     @ManyToOne
     @JoinColumn(name = "user", referencedColumnName = "id")

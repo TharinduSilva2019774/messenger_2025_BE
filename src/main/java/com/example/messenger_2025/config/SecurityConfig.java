@@ -19,7 +19,8 @@ public class SecurityConfig {
                                 "/public/**",
                                 "/test",
                                 "/error",
-                                "/ws/**"
+                                "/ws/**",
+                                "**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

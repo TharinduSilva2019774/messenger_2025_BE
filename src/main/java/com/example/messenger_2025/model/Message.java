@@ -32,4 +32,8 @@ public class Message {
     @ManyToOne
     @JoinColumn(name = "chat", referencedColumnName = "id")
     private Chat chat;
+
+    @ManyToOne
+    @JoinColumn(name = "encuser", referencedColumnName = "id")
+    private User encUser;
 }
