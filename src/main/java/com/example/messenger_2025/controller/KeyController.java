@@ -14,7 +14,7 @@ public class KeyController {
     private KeyService keyService;
 
     @GetMapping("")
-    public GetKeyDto getKeyFromDeviceId(@RequestParam("clarkId") String clarkId) {
+    public GetKeyDto getKeyFromClarkId(@RequestParam("clarkId") String clarkId) {
         return keyService.getKey(clarkId);
     }
 
