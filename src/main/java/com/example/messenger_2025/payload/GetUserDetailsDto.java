@@ -13,5 +13,6 @@ public class GetUserDetailsDto {
 
     private long id;
     private String clarkId;
+    private String publicKey;
 
 }

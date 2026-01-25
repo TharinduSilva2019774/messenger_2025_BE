@@ -20,6 +20,7 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(length = 1024)
     private String messageBody;
 
     @CreationTimestamp

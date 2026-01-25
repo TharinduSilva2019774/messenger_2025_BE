@@ -26,6 +26,9 @@ public class ChatService {
     @Autowired
     private Chat_UserRepository chatUserRepository;
 
+    @Autowired
+    private KeyService keyService;
+
     public String addChat(PostChatDto postChatDto){
         Chat chat = new Chat();
         chat.setName(postChatDto.getChatName());
@@ -62,9 +65,10 @@ public class ChatService {
 
         List<GetUserDetailsDto> userDetailsDtoLists = new ArrayList<>();
 
+        String clarkId;
         for (Chat_User chatUser : chatUserList){
-
-            userDetailsDtoLists.add(new GetUserDetailsDto(chatUser.getUser().getId(),chatUser.getUser().getClarkId()));
+            clarkId=chatUser.getUser().getClarkId();
+            userDetailsDtoLists.add(new GetUserDetailsDto(chatUser.getUser().getId(),clarkId,keyService.getKey(clarkId).getKey()));
         }
 
         return new GetChatDetailsDto(chat.getId(),chat.getName(),userDetailsDtoLists);
