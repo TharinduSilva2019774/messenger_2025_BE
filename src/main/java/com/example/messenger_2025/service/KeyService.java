@@ -38,12 +38,6 @@ public class KeyService {
     public String postKey(PostKeyDto postKeyDto){
         User user = userService.getUserByClarkId(postKeyDto.getClarkId());
 
-        Optional<Key> existing = keyRepository.findTopByUserOrderByIdDesc(user);
-
-        if(existing.isPresent()){
-            throw new DuplicateResourceException("DeviceUID already exist");
-        }
-
         Key key = new Key();
         key.setKey(postKeyDto.getKey());
         key.setDeviceUID(postKeyDto.getDeviceUID());
