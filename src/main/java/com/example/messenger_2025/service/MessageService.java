@@ -27,7 +27,7 @@ public class MessageService {
     private ChatService chatService;
 
 
-    public GetAllMessagesResponseDto getAllMessages(String clarkId,long chatId) throws Exception {
+    public GetAllMessagesResponseDto getAllMessages(String clarkId,long chatId) {
 
         User user = userService.getUserByClarkId(clarkId);
         Chat chat = chatService.getChat(chatId);
@@ -39,7 +39,16 @@ public class MessageService {
         User mUser;
         for(Message message : messages){
             mUser = message.getUser();
-            GetMessageResponseDto getMessageResponseDto = new GetMessageResponseDto(message.getId(),message.getMessageBody(),message.getTime(),mUser.getId(),mUser.getClarkId(),mUser.getFirstName(),message.getChat().getId());
+            GetMessageResponseDto getMessageResponseDto = new GetMessageResponseDto(
+                    message.getId(),
+                    message.getMessageBody(),
+                    message.getTime(),
+                    mUser.getId(),
+                    mUser.getClarkId(),
+                    mUser.getFirstName(),
+                    message.getChat().getId(),
+                    message.getEncUser().getId(),
+                    message.getEncUser().getClarkId());
 
             getMessageResponseDtos.add(getMessageResponseDto);
         }
@@ -47,14 +56,15 @@ public class MessageService {
         return new GetAllMessagesResponseDto(getMessageResponseDtos);
     }
 
-    public String postMessage(PostMessageDto postMessageDto) throws Exception {
+    public String postMessage(PostMessageDto postMessageDto) {
         User user = userService.getUserByClarkId(postMessageDto.getClarkId());
+        User encUser = userService.getUserByClarkId(postMessageDto.getEncClarkId());
 
         Message newMessage = new Message();
         newMessage.setMessageBody(postMessageDto.getMessage());
         newMessage.setUser(user);
         newMessage.setChat(chatService.getChat(postMessageDto.getChatId()));
-
+        newMessage.setEncUser(encUser);
         messageRepository.save(newMessage);
 
         return "Saved";

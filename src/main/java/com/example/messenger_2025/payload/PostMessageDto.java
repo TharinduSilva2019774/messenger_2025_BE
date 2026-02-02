@@ -10,5 +10,6 @@ public class PostMessageDto {
     private String message;
     private String clarkId;
     private long chatId;
+    private String encClarkId;
 
 }

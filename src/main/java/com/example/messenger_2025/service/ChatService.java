@@ -1,16 +1,16 @@
 package com.example.messenger_2025.service;
 
+import com.example.messenger_2025.exceptions.ResourceNotFoundException;
 import com.example.messenger_2025.model.Chat;
 import com.example.messenger_2025.model.Chat_User;
 import com.example.messenger_2025.model.User;
-import com.example.messenger_2025.payload.GetAllChatDto;
-import com.example.messenger_2025.payload.GetChatDto;
-import com.example.messenger_2025.payload.PostChatDto;
+import com.example.messenger_2025.payload.*;
 import com.example.messenger_2025.repository.ChatRepository;
 import com.example.messenger_2025.repository.Chat_UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +25,9 @@ public class ChatService {
 
     @Autowired
     private Chat_UserRepository chatUserRepository;
+
+    @Autowired
+    private KeyService keyService;
 
     public String addChat(PostChatDto postChatDto){
         Chat chat = new Chat();
@@ -48,12 +51,27 @@ public class ChatService {
         return getAllChatDto;
     }
 
-    public Chat getChat(long id) throws Exception {
+    public Chat getChat(long id) {
         Optional<Chat> chatOptional = chatRepository.findById(id);
         if (chatOptional.isEmpty()){
-            throw new Exception();
+            throw new ResourceNotFoundException("Chat not found");
         }
         return chatOptional.get();
+    }
+
+    public GetChatDetailsDto getChatDetailsDto(long id) {
+        Chat chat = getChat(id);
+        List<Chat_User> chatUserList = chatUserRepository.findAllByChat(chat);
+
+        List<GetUserDetailsDto> userDetailsDtoLists = new ArrayList<>();
+
+        String clarkId;
+        for (Chat_User chatUser : chatUserList){
+            clarkId=chatUser.getUser().getClarkId();
+            userDetailsDtoLists.add(new GetUserDetailsDto(chatUser.getUser().getId(),clarkId,keyService.getKey(clarkId).getKey()));
+        }
+
+        return new GetChatDetailsDto(chat.getId(),chat.getName(),userDetailsDtoLists);
     }
 
 }

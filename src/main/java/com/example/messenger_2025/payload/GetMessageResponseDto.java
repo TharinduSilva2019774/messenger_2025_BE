@@ -26,4 +26,8 @@ public class GetMessageResponseDto {
 
     private long chatId;
 
+    private long encUserId;
+
+    private String encClarkId;
+
 }
