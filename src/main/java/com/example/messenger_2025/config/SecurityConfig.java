@@ -21,7 +21,6 @@ public class SecurityConfig {
                                 "/error",
                                 "/ws/**",
                                 "**"
-
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
