@@ -1,8 +1,10 @@
 package com.example.messenger_2025.service;
 
+import com.example.messenger_2025.exceptions.ResourceNotFoundException;
 import com.example.messenger_2025.model.Chat;
 import com.example.messenger_2025.model.Message;
 import com.example.messenger_2025.model.User;
+import com.example.messenger_2025.payload.DeleteMessageDto;
 import com.example.messenger_2025.payload.GetAllMessagesResponseDto;
 import com.example.messenger_2025.payload.GetMessageResponseDto;
 import com.example.messenger_2025.payload.PostMessageDto;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MessageService {
@@ -68,5 +71,19 @@ public class MessageService {
         messageRepository.save(newMessage);
 
         return "Saved";
+    }
+
+    public GetMessageResponseDto deleteMessage(DeleteMessageDto deleteMessageDto) {
+
+        Optional<Message> messageToDel = messageRepository.findById(deleteMessageDto.getId());
+
+        if (messageToDel.isEmpty()){
+            throw new ResourceNotFoundException("Message not found to delete");
+        }
+        Message message = messageToDel.get();
+
+        messageRepository.delete(message);
+
+        return new GetMessageResponseDto(message.getId(),message.getMessageBody(),message.getTime(),message.getUser().getId(),message.getUser().getClarkId(),message.getUser().getFirstName(),message.getChat().getId(),message.getEncUser().getId(),message.getEncUser().getClarkId());
     }
 }
