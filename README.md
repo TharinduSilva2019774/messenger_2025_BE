@@ -1,100 +1,166 @@
-Messenger 2025 — Backend 🚀
+# 💬 Messenger 2025 – Backend (Spring Boot)
 
-A production-oriented Spring Boot backend powering the Messenger 2025 application.
-This service delivers REST APIs, real-time messaging via WebSockets, persistent storage with MySQL, and JWT-based authentication validation.
+A modern, scalable real-time messaging backend built with Spring Boot, WebSockets (STOMP), JWT security, and MySQL.  
+Designed with clean architecture principles and seamless integration with a Clerk-authenticated frontend.
 
-🔧 Tech Stack
+---
 
-Spring Boot 3.x — REST controllers & WebSocket endpoints
+## 🧱 Architecture Overview
 
-MySQL 8+ — Persistent relational storage
+### Layer Responsibilities
 
-JPA / Hibernate — ORM & data mapping
+- Controllers — Handle HTTP requests and WebSocket connections  
+- Services — Implement business logic and enforce data integrity  
+- Repositories — Manage database access and transactions  
+- Models / DTOs — Define entities and API request/response payloads  
 
-STOMP over WebSocket — Real-time messaging
+---
 
-Lombok — Boilerplate reduction
+## ✅ Features
 
-JWT — Access token validation
+- ✅ REST APIs — Create, retrieve, update, and delete users & messages  
+- ✅ Real-time Chat — WebSocket + STOMP for instant messaging  
+- ✅ Clean API Design — DTO-based request/response models  
+- ✅ Testable Services — Decoupled business logic  
+- ✅ Secure Endpoints — JWT-based authentication with Spring Security  
+- ✅ Clerk Integration — Frontend authenticates via Clerk, backend validates JWT  
 
-🏗 Architecture Overview
-Controller (REST & WebSocket)
-        ↓
-Service (Business Logic)
-        ↓
-Repository (Data Access)
-        ↓
-Model / DTO (Entities & API Payloads)
+Note:  
+The frontend authenticates users using Clerk and sends JWTs in  
+Authorization: Bearer &lt;token&gt; headers.  
+The backend validates these tokens via Spring Security filters.
 
-✅ Features
+---
 
-REST endpoints for users and messages (GET / POST)
+## 📌 Prerequisites
 
-Real-time chat using WebSocket + STOMP
+- Java 21+  
+- Maven 3.8+ (or Gradle)  
+- MySQL 8.0+  
+- Git  
 
-DTO-based APIs for clean and stable payloads
+Optional:
+- Docker (for MySQL container)
+- Postman or Thunder Client
 
-Service layer for testable and maintainable business logic
+---
 
-JWT validation for protected endpoints
+## 🚀 Installation & Setup
 
-Authentication Note
-The frontend authenticates users using Clerk and sends JWTs via
-Authorization: Bearer <token> headers.
-The backend performs server-side JWT validation using Spring Security filters.
+### 1. Clone the Repository
 
-🚀 Quick Start
-Prerequisites
+git clone https://github.com/TharinduSilva2019774/messenger_2025_BE.git  
+cd messenger_2025_BE
 
-Java 21+
+---
 
-MySQL 8+
+### 2. Set Up MySQL Database
 
-⚙️ Environment Configuration
+Using Docker (Recommended):
 
-Add your database credentials to application.properties:
+docker run --name messenger_db \
+-e MYSQL_ROOT_PASSWORD=root \
+-e MYSQL_DATABASE=messenger_2025 \
+-p 3306:3306 \
+-d mysql:8.0
 
-spring.datasource.url=jdbc:mysql://localhost:3306/messenger_2025
-spring.datasource.username=your_username
-spring.datasource.password=your_password
+Or manually:
 
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
+CREATE DATABASE messenger_2025;
 
-▶️ Run Locally
-./mvnw spring-boot:run
+---
 
-📌 Key Endpoints
-REST APIs
+### 3. Application Properties
 
-GET /api/users — List users
+spring.datasource.url=jdbc:mysql://localhost:3306/messenger_2025  
+spring.datasource.username=root  
+spring.datasource.password=root  
 
-POST /api/users — Create user
+spring.jpa.hibernate.ddl-auto=update  
 
-GET /api/messages — List messages
+server.port=8080  
+server.servlet.context-path=/api  
 
-POST /api/messages — Send message
+jwt.secret=your_super_secret_jwt_key_here  
+jwt.expiration=86400000  
 
-WebSocket
+spring.websocket.path=/ws  
 
-/ws — Real-time chat (STOMP)
+---
 
-🤝 Contributing
+### 4. Build & Run
 
-Fork the repository
+mvn clean install  
+mvn spring-boot:run  
 
-Create a new branch
+Application URL: http://localhost:8080
 
-git checkout -b Messenger_2025
+---
 
+## 📡 API Documentation
 
-Commit your changes
+### User Endpoints
 
-Open a Pull Request
+GET    /api/users  
+POST   /api/users  
+GET    /api/users/{id}  
+PUT    /api/users/{id}  
+DELETE /api/users/{id}  
 
-Please follow existing code patterns and add or update tests where applicable.
+---
 
-📬 Contact
+### Message Endpoints
 
-Created by Tharindu Silva
-Feel free to reach out for questions, feedback, or collaboration.
+GET    /api/messages  
+GET    /api/messages?userId={id}  
+POST   /api/messages  
+DELETE /api/messages/{id}  
+
+---
+
+## 🔌 WebSocket
+
+Endpoint: ws://localhost:8080/ws  
+
+Subscribe:
+'/user/queue/messages'
+
+Send:
+'/app/chat.sendMessage'
+
+---
+
+## 📂 Project Structure
+
+messenger_2025_BE/
+├── controller
+├── service
+├── repository
+├── model
+├── dto
+├── security
+└── MessengerApplication.java
+
+---
+
+## 🤝 Contributing
+
+- Fork the repo  
+- Create a feature branch  
+- Commit changes  
+- Open a Pull Request  
+
+---
+
+## 📄 License
+
+MIT License
+
+---
+
+## 📬 Contact
+
+Created by: Tharindu Silva  
+GitHub: @TharinduSilva2019774  
+
+Last Updated: February 2026
