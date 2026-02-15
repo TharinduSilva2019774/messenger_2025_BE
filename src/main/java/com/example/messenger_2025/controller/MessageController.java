@@ -23,12 +23,12 @@ public class MessageController {
     }
 
     @GetMapping()
-    public GetAllMessagesResponseDto getAllMessages(@RequestParam ("userId") String userId, @RequestParam ("chatId") long chatId) throws Exception {
+    public GetAllMessagesResponseDto getAllMessages(@RequestParam ("userId") String userId, @RequestParam ("chatId") long chatId) {
         return messageService.getAllMessages(userId,chatId);
     }
 
     @PostMapping("")
-    public String postMessage(@RequestBody PostMessageDto postMessageDto) throws Exception {
+    public String postMessage(@RequestBody PostMessageDto postMessageDto) {
         return messageService.postMessage(postMessageDto);
     }
 
