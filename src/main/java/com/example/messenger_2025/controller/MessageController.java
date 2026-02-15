@@ -1,6 +1,8 @@
 package com.example.messenger_2025.controller;
 
+import com.example.messenger_2025.payload.DeleteMessageDto;
 import com.example.messenger_2025.payload.GetAllMessagesResponseDto;
+import com.example.messenger_2025.payload.GetMessageResponseDto;
 import com.example.messenger_2025.payload.PostMessageDto;
 import com.example.messenger_2025.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,18 +23,18 @@ public class MessageController {
     }
 
     @GetMapping()
-    public GetAllMessagesResponseDto getAllMessages(@RequestParam ("userId") String userId, @RequestParam ("chatId") long chatId) throws Exception {
+    public GetAllMessagesResponseDto getAllMessages(@RequestParam ("userId") String userId, @RequestParam ("chatId") long chatId) {
         return messageService.getAllMessages(userId,chatId);
     }
 
     @PostMapping("")
-    public String postMessage(@RequestBody PostMessageDto postMessageDto) throws Exception {
+    public String postMessage(@RequestBody PostMessageDto postMessageDto) {
         return messageService.postMessage(postMessageDto);
     }
 
     @MessageMapping("/chat.send")
     @SendTo("/topic/messages")
-    public GetAllMessagesResponseDto handleMessage(PostMessageDto postMessageDto) throws Exception {
+    public GetAllMessagesResponseDto handlePostMessage(PostMessageDto postMessageDto) {
 
         // 1. Save to DB
         messageService.postMessage(postMessageDto);
@@ -40,4 +42,16 @@ public class MessageController {
         // 2. Return to broadcast
         return messageService.getAllMessages(postMessageDto.getClarkId(), postMessageDto.getChatId());
     }
+
+    @MessageMapping("/chat.delete")
+    @SendTo("/topic/messages")
+    public GetAllMessagesResponseDto handleDeleteMessage(DeleteMessageDto deleteMessageDto) {
+
+        // 1. Save to DB
+        GetMessageResponseDto deletedMessage = messageService.deleteMessage(deleteMessageDto);
+
+        // 2. Return to broadcast
+        return messageService.getAllMessages(deletedMessage.getClarkId(), deletedMessage.getChatId());
+    }
+
 }
