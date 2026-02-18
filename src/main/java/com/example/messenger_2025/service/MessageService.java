@@ -75,7 +75,7 @@ public class MessageService {
 
     public GetMessageResponseDto deleteMessage(DeleteMessageDto deleteMessageDto) {
 
-        Optional<Message> messageToDel = messageRepository.findById(deleteMessageDto.getId());
+        Optional<Message> messageToDel = messageRepository.findById(deleteMessageDto.getMessageId());
 
         if (messageToDel.isEmpty()){
             throw new ResourceNotFoundException("Message not found to delete");
