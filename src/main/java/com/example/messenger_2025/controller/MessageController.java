@@ -54,4 +54,15 @@ public class MessageController {
         return messageService.getAllMessages(deletedMessage.getClarkId(), deletedMessage.getChatId());
     }
 
+    @MessageMapping("/chat.gpt")
+    @SendTo("/topic/messages")
+    public GetAllMessagesResponseDto handleDeleteMessage(DeleteMessageDto deleteMessageDto) {
+
+        // 1. Save to DB
+        GetMessageResponseDto deletedMessage = messageService.deleteMessage(deleteMessageDto);
+
+        // 2. Return to broadcast
+        return messageService.getAllMessages(deletedMessage.getClarkId(), deletedMessage.getChatId());
+    }
+
 }
