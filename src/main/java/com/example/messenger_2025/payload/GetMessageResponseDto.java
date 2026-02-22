@@ -29,6 +29,6 @@ public class GetMessageResponseDto {
 
     private String encClarkId;
 
-    private boolean is_encrypted;
+    private boolean isEncrypted;
 
 }

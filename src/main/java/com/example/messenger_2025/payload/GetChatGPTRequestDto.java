@@ -7,6 +7,14 @@ import lombok.Setter;
 @Setter
 public class GetChatGPTRequestDto {
 
+    private String message;
+
+    private String clarkId;
+
+    private long chatId;
+
+    private String otherClarkId;
+
     private String context;
 
 }

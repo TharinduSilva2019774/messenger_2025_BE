@@ -38,5 +38,5 @@ public class Message {
     @JoinColumn(name = "encuser", referencedColumnName = "id")
     private User encUser;
 
-    private boolean is_encrypted;
+    private Boolean isEncrypted;
 }

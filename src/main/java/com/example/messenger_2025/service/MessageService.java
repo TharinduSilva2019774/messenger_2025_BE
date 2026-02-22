@@ -51,7 +51,7 @@ public class MessageService {
                     message.getChat().getId(),
                     message.getEncUser().getId(),
                     message.getEncUser().getClarkId(),
-                    message.get);
+                    message.getIsEncrypted());
 
             getMessageResponseDtos.add(getMessageResponseDto);
         }
@@ -94,6 +94,6 @@ public class MessageService {
                 message.getChat().getId(),
                 message.getEncUser().getId(),
                 message.getEncUser().getClarkId(),
-                message.getIs_encrypted());
+                message.getIsEncrypted());
     }
 }
