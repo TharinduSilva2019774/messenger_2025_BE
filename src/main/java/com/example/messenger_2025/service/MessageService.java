@@ -32,7 +32,6 @@ public class MessageService {
 
     public GetAllMessagesResponseDto getAllMessages(String clarkId,long chatId) {
 
-        User user = userService.getUserByClarkId(clarkId);
         Chat chat = chatService.getChat(chatId);
 
         List<Message> messages = messageRepository.findTop20ByChatOrderByIdDesc(chat);
@@ -51,7 +50,8 @@ public class MessageService {
                     mUser.getFirstName(),
                     message.getChat().getId(),
                     message.getEncUser().getId(),
-                    message.getEncUser().getClarkId());
+                    message.getEncUser().getClarkId(),
+                    message.get);
 
             getMessageResponseDtos.add(getMessageResponseDto);
         }
@@ -84,6 +84,16 @@ public class MessageService {
 
         messageRepository.delete(message);
 
-        return new GetMessageResponseDto(message.getId(),message.getMessageBody(),message.getTime(),message.getUser().getId(),message.getUser().getClarkId(),message.getUser().getFirstName(),message.getChat().getId(),message.getEncUser().getId(),message.getEncUser().getClarkId());
+        return new GetMessageResponseDto(
+                message.getId(),
+                message.getMessageBody(),
+                message.getTime(),
+                message.getUser().getId(),
+                message.getUser().getClarkId(),
+                message.getUser().getFirstName(),
+                message.getChat().getId(),
+                message.getEncUser().getId(),
+                message.getEncUser().getClarkId(),
+                message.getIs_encrypted());
     }
 }

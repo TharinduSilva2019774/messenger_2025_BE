@@ -37,4 +37,6 @@ public class Message {
     @ManyToOne
     @JoinColumn(name = "encuser", referencedColumnName = "id")
     private User encUser;
+
+    private boolean is_encrypted;
 }
