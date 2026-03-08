@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import java.sql.Timestamp;
 
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -29,5 +28,7 @@ public class GetMessageResponseDto {
     private long encUserId;
 
     private String encClarkId;
+
+    private boolean isEncrypted;
 
 }

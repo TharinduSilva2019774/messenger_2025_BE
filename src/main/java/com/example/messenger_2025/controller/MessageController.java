@@ -1,9 +1,7 @@
 package com.example.messenger_2025.controller;
 
-import com.example.messenger_2025.payload.DeleteMessageDto;
-import com.example.messenger_2025.payload.GetAllMessagesResponseDto;
-import com.example.messenger_2025.payload.GetMessageResponseDto;
-import com.example.messenger_2025.payload.PostMessageDto;
+import com.example.messenger_2025.payload.*;
+import com.example.messenger_2025.service.ChatGPTService;
 import com.example.messenger_2025.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -17,6 +15,9 @@ public class MessageController {
     @Autowired
     private MessageService messageService;
 
+    @Autowired
+    private ChatGPTService chatGPTService;
+
     @GetMapping("/hello")
     public String hello(){
         return "Hello this is Messages endpoint.";
@@ -28,7 +29,7 @@ public class MessageController {
     }
 
     @PostMapping("")
-    public String postMessage(@RequestBody PostMessageDto postMessageDto) {
+    public PostMessageResponce postMessage(@RequestBody PostMessageDto postMessageDto) {
         return messageService.postMessage(postMessageDto);
     }
 
@@ -52,6 +53,17 @@ public class MessageController {
 
         // 2. Return to broadcast
         return messageService.getAllMessages(deletedMessage.getClarkId(), deletedMessage.getChatId());
+    }
+
+    @MessageMapping("/chat.gpt")
+    @SendTo("/topic/messages")
+    public GetAllMessagesResponseDto handleChatGPTMessage(GetChatGPTRequestDto getChatGPTRequestDto) {
+
+        // 1. Save to DB
+        chatGPTService.chatGPTResponse(getChatGPTRequestDto);
+
+        // 2. Return to broadcast
+        return messageService.getAllMessages(getChatGPTRequestDto.getClarkId(), getChatGPTRequestDto.getChatId());
     }
 
 }

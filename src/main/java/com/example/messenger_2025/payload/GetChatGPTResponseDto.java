@@ -4,15 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+@AllArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
-public class PostMessageDto {
+public class GetChatGPTResponseDto {
 
     private String message;
-    private String clarkId;
-    private long chatId;
-    private String encClarkId;
-    private boolean isEncrypted;
-
 }
