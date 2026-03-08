@@ -29,7 +29,7 @@ public class MessageController {
     }
 
     @PostMapping("")
-    public String postMessage(@RequestBody PostMessageDto postMessageDto) {
+    public PostMessageResponce postMessage(@RequestBody PostMessageDto postMessageDto) {
         return messageService.postMessage(postMessageDto);
     }
 
@@ -60,10 +60,10 @@ public class MessageController {
     public GetAllMessagesResponseDto handleChatGPTMessage(GetChatGPTRequestDto getChatGPTRequestDto) {
 
         // 1. Save to DB
-        GetMessageResponseDto deletedMessage = chatGPTService.chatGPTResponse(getChatGPTRequestDto);
+        chatGPTService.chatGPTResponse(getChatGPTRequestDto);
 
         // 2. Return to broadcast
-        return messageService.getAllMessages(deletedMessage.getClarkId(), deletedMessage.getChatId());
+        return messageService.getAllMessages(getChatGPTRequestDto.getClarkId(), getChatGPTRequestDto.getChatId());
     }
 
 }

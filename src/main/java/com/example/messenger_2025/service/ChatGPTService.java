@@ -25,21 +25,22 @@ public class ChatGPTService {
     public GetMessageResponseDto chatGPTResponse(GetChatGPTRequestDto getChatGPTRequestDto){
         OpenAIClient client = OpenAIOkHttpClient.fromEnv();
         String promt = """
-                Bellow are the chat messages attached for this chat looking at the given messages make an appropriate response for the last asked question. 
-               
-                *""" + getChatGPTRequestDto.getContext() + """
+                Bellow are the chat messages attached for this chat looking at the given messages make an appropriate response for the last asked question.\sThis out put will be directly shown to user as well
+              \s
+                context :\s""" + getChatGPTRequestDto.getContext() + """
                 
+                Message :""" + getChatGPTRequestDto.getMessage() + """
                 """;
 
         ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
                 .addUserMessage(promt)
-                .model("gpt-4.0")
+                .model("gpt-5-nano")
                 .build();
         ChatCompletion chatCompletion = client.chat().completions().create(params);
         Optional<String> optString = chatCompletion.choices().getFirst().message().content();
         if(optString.isPresent()){
-            messageService.postMessage(new PostMessageDto(optString.get(),"ChatGPT", getChatGPTRequestDto.getChatId(), getChatGPTRequestDto.getClarkId()));
-            messageService.postMessage(new PostMessageDto(optString.get(),"ChatGPT", getChatGPTRequestDto.getChatId(), getChatGPTRequestDto.getOtherClarkId()));
+            messageService.postMessage(new PostMessageDto(optString.get(), "ChatGPT", getChatGPTRequestDto.getChatId(), getChatGPTRequestDto.getClarkId(), false));
+            messageService.postMessage(new PostMessageDto(optString.get(),"ChatGPT", getChatGPTRequestDto.getChatId(), getChatGPTRequestDto.getOtherClarkId(),false));
         }
         return null;
     }

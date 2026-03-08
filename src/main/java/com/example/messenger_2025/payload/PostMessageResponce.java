@@ -4,15 +4,31 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Timestamp;
+
 @Getter
 @Setter
 @AllArgsConstructor
-public class PostMessageDto {
+public class PostMessageResponce {
+
+    private long id;
 
     private String message;
+
+    private Timestamp time;
+
+    private long userId;
+
     private String clarkId;
+
+    private String userFirstName;
+
     private long chatId;
+
+    private long encUserId;
+
     private String encClarkId;
+
     private boolean isEncrypted;
 
 }
