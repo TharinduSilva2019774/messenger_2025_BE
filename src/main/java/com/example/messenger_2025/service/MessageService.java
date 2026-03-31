@@ -8,7 +8,10 @@ import com.example.messenger_2025.payload.*;
 import com.example.messenger_2025.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,7 +30,7 @@ public class MessageService {
     private ChatService chatService;
 
 
-    public GetAllMessagesResponseDto getAllMessages(String clarkId,long chatId) {
+    public GetAllMessagesResponseDto getAllMessages(long chatId) {
 
         Chat chat = chatService.getChat(chatId);
 
@@ -48,7 +51,8 @@ public class MessageService {
                     message.getChat().getId(),
                     message.getEncUser().getId(),
                     message.getEncUser().getClarkId(),
-                    message.getIsEncrypted());
+                    message.getIsEncrypted(),
+                    message.getIsRead());
 
             getMessageResponseDtos.add(getMessageResponseDto);
         }
@@ -102,6 +106,18 @@ public class MessageService {
                 message.getChat().getId(),
                 message.getEncUser().getId(),
                 message.getEncUser().getClarkId(),
-                message.getIsEncrypted());
+                message.getIsEncrypted(),
+                message.getIsRead());
+    }
+
+    @Transactional
+    public void updateIsRead(PostUpdateIsRead postUpdateIsRead){
+        List<Message> messageList = messageRepository.findAllById(postUpdateIsRead.getMessageList());
+
+        for (Message message : messageList){
+            message.setIsRead(postUpdateIsRead.isNewStatus());
+            message.setSetReadAt(Timestamp.valueOf(LocalDateTime.now()));
+        }
+
     }
 }

@@ -80,7 +80,7 @@ class MessageServiceTest {
         when(messageRepository.findTop20ByChatOrderByIdDesc(chat)).thenReturn(messages);
 
         // Act
-        GetAllMessagesResponseDto response = messageService.getAllMessages(clarkId, chatId);
+        GetAllMessagesResponseDto response = messageService.getAllMessages(chatId);
 
         // Assert
         assertNotNull(response);
