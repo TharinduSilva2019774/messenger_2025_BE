@@ -31,4 +31,6 @@ public class GetMessageResponseDto {
 
     private boolean isEncrypted;
 
+    private boolean isRead;
+
 }

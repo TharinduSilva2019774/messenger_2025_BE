@@ -39,4 +39,9 @@ public class Message {
     private User encUser;
 
     private Boolean isEncrypted;
+
+    @Column(name = "isread", nullable = false)
+    private Boolean isRead = false;
+
+    private Timestamp setReadAt;
 }

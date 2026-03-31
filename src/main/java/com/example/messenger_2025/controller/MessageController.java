@@ -24,13 +24,20 @@ public class MessageController {
     }
 
     @GetMapping()
-    public GetAllMessagesResponseDto getAllMessages(@RequestParam ("userId") String userId, @RequestParam ("chatId") long chatId) {
-        return messageService.getAllMessages(userId,chatId);
+    public GetAllMessagesResponseDto getAllMessages(@RequestParam ("chatId") long chatId) {
+        return messageService.getAllMessages(chatId);
     }
 
     @PostMapping("")
     public PostMessageResponce postMessage(@RequestBody PostMessageDto postMessageDto) {
         return messageService.postMessage(postMessageDto);
+    }
+
+    @PutMapping("/read")
+    public GetAllMessagesResponseDto postUpdateRead(PostUpdateIsRead postUpdateIsRead) {
+        messageService.updateIsRead(postUpdateIsRead);
+
+        return messageService.getAllMessages(postUpdateIsRead.getChatId());
     }
 
     @MessageMapping("/chat.send")
@@ -41,7 +48,7 @@ public class MessageController {
         messageService.postMessage(postMessageDto);
 
         // 2. Return to broadcast
-        return messageService.getAllMessages(postMessageDto.getClarkId(), postMessageDto.getChatId());
+        return messageService.getAllMessages(postMessageDto.getChatId());
     }
 
     @MessageMapping("/chat.delete")
@@ -52,7 +59,7 @@ public class MessageController {
         GetMessageResponseDto deletedMessage = messageService.deleteMessage(deleteMessageDto);
 
         // 2. Return to broadcast
-        return messageService.getAllMessages(deletedMessage.getClarkId(), deletedMessage.getChatId());
+        return messageService.getAllMessages(deletedMessage.getChatId());
     }
 
     @MessageMapping("/chat.gpt")
@@ -63,7 +70,8 @@ public class MessageController {
         chatGPTService.chatGPTResponse(getChatGPTRequestDto);
 
         // 2. Return to broadcast
-        return messageService.getAllMessages(getChatGPTRequestDto.getClarkId(), getChatGPTRequestDto.getChatId());
+        return messageService.getAllMessages(getChatGPTRequestDto.getChatId());
     }
+
 
 }
